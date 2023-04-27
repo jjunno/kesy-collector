@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <h2>Use JavaScript to Change Text f</h2>
+    <p>
+      This example writes "Hello JavaScript!" into an HTML element with
+      id="demo":
+    </p>
+
+    <p id="demo"></p>
+    <div id="messages"></div>
+    <input type="text" id="message" />
+    <button id="send">Send Message</button>
+    <script src="./client/ws.js"></script>
+
+    <script>
+      console.log('Init html');
+      document.getElementById('demo').innerHTML = 'Hello JavaScript!';
+    </script>
+  </body>
+</html>

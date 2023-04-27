@@ -1,0 +1,28 @@
+{
+  "name": "kesy",
+  "version": "1.0.0",
+  "description": "Keräily Systeemi",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npx nodemon collector/node/express.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jjunno/kesy.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jjunno/kesy/issues"
+  },
+  "homepage": "https://github.com/jjunno/kesy#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "websocket": "^1.0.34",
+    "ws": "^8.13.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
