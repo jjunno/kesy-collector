@@ -33,14 +33,14 @@ class Trash:
         self.uuid = uuid
         self.headers = {'Content-Type': 'application/json'}
         self.picturePath = PICTURE_SAVE_PATH + '/' + self.uuid + '.jpg'
-        self.encodedPicture = None
+        self.encodedImage = None
 
         self.pictureToBase64()
 
     def send(self):
         print('Sending trash to master server UUID', self.uuid)
         payload = {"uuid": self.uuid,
-                   "encodedPicture": str(self.encodedPicture)}
+                   "encodedImage": self.encodedImage}
 
         response = requests.post(RECEIVER_API_URL, json=payload, headers=self.headers, auth=(
             RECEIVER_API_USERNAME, RECEIVER_API_PASSWORD))
@@ -48,10 +48,11 @@ class Trash:
 
     def pictureToBase64(self):
         with open(self.picturePath, "rb") as f:
-            encodedString = base64.b64encode(f.read())
-            self.encodedPicture = encodedString
-            return encodedString
+            base64Bytes = base64.b64encode(f.read())
+            base64String = base64Bytes.decode('utf-8')
+            self.encodedImage = base64String
+            return base64String
 
 
-# trash = Trash('123-1123-1233')
-# trash.send()
+trash = Trash('123-1123-1233')
+trash.send()
