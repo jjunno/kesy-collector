@@ -11,9 +11,9 @@ load_dotenv()
 # Env variables
 ENV = str(os.getenv('ENV', 'development'))
 SHOW_PREVIEW = str(os.getenv('SHOW_PREVIEW', False))
-PICTURE_WIDTH = int(os.getenv('PICTURE_WIDTH', 1920))
-PICTURE_HEIGHT = int(os.getenv('PICTURE_HEIGHT', 1080))
-PICTURE_SAVE_PATH = str(os.getenv('PICTURE_SAVE_PATH', ''))
+IMAGE_WIDTH = int(os.getenv('IMAGE_WIDTH', 1920))
+IMAGE_HEIGHT = int(os.getenv('IMAGE_HEIGHT', 1080))
+IMAGE_SAVE_PATH = str(os.getenv('IMAGE_SAVE_PATH', ''))
 
 
 # Preview can only be used in development mode,
@@ -28,18 +28,18 @@ class Camera:
     def __init__(self):
         self.picam = Picamera2()
 
-        # Configuration for picture
+        # Configuration for image
         stillConfig = self.picam.create_still_configuration(
-            main={"size": (PICTURE_WIDTH, PICTURE_HEIGHT)})
+            main={"size": (IMAGE_WIDTH, IMAGE_HEIGHT)})
         self.picam.configure(stillConfig)
 
         # Configuration for preview
         if (showPreview()):
             previewConfig = self.picam.create_preview_configuration(
-                main={"size": (PICTURE_WIDTH, PICTURE_HEIGHT)})
+                main={"size": (IMAGE_WIDTH, IMAGE_HEIGHT)})
             self.picam.configure(previewConfig)
 
-    # uuid is used for naming the picture
+    # uuid is used for naming the image
     def capture(self, uuid=str(uuid.uuid4())):
         if (showPreview()):
             self.picam.start_preview(Preview.QTGL)
@@ -49,7 +49,7 @@ class Camera:
         if (showPreview()):
             time.sleep(2)
 
-        self.picam.capture_file(PICTURE_SAVE_PATH + '/' + uuid + '.jpg')
+        self.picam.capture_file(IMAGE_SAVE_PATH + '/' + uuid + '.jpg')
         self.picam.close()
 
 

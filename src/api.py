@@ -10,7 +10,7 @@ RPI1CLIENTACCESS_API_URL = str(os.getenv('RPI1CLIENTACCESS_API_URL', ''))
 RECEIVER_API_URL = str(os.getenv('RECEIVER_API_URL', ''))
 RECEIVER_API_USERNAME = str(os.getenv('RECEIVER_API_USERNAME', ''))
 RECEIVER_API_PASSWORD = str(os.getenv('RECEIVER_API_PASSWORD', ''))
-PICTURE_SAVE_PATH = str(os.getenv('PICTURE_SAVE_PATH', ''))
+IMAGE_SAVE_PATH = str(os.getenv('IMAGE_SAVE_PATH', ''))
 
 
 class ClientLocation:
@@ -32,10 +32,10 @@ class Trash:
     def __init__(self, uuid):
         self.uuid = uuid
         self.headers = {'Content-Type': 'application/json'}
-        self.picturePath = PICTURE_SAVE_PATH + '/' + self.uuid + '.jpg'
+        self.imagePath = IMAGE_SAVE_PATH + '/' + self.uuid + '.jpg'
         self.encodedImage = None
 
-        self.pictureToBase64()
+        self.imageToBase64()
 
     def send(self):
         print('Sending trash to master server UUID', self.uuid)
@@ -46,8 +46,8 @@ class Trash:
             RECEIVER_API_USERNAME, RECEIVER_API_PASSWORD))
         print(response)
 
-    def pictureToBase64(self):
-        with open(self.picturePath, "rb") as f:
+    def imageToBase64(self):
+        with open(self.imagePath, "rb") as f:
             base64Bytes = base64.b64encode(f.read())
             base64String = base64Bytes.decode('utf-8')
             self.encodedImage = base64String
