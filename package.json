@@ -2,10 +2,10 @@
   "name": "kesy",
   "version": "1.0.0",
   "description": "Keräily Systeemi",
-  "main": "index.js",
+  "main": "express.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npx nodemon collector/node/express.js"
+    "dev": "npx nodemon collector/client/express.js"
   },
   "repository": {
     "type": "git",
