@@ -2,7 +2,6 @@ import os
 import time
 import uuid
 
-import libcamera
 from picamera2 import Picamera2, Preview
 from dotenv import load_dotenv
 
