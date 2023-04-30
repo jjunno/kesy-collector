@@ -16,3 +16,8 @@ Node.js ottaa RESTiä vastaan RPI#1:stä joko reaaliajassa tai manuaalisessa syn
 Data tallennetaan MySQL kantaan.
 
 Node.js myös palvelee dataa Vue:lle, jota voidaan esitellä sivuston kävijöille.
+
+INSTALL
+python3 -m venv env
+source env/bin/activate
+pip3 install -r src/requirements.txt
