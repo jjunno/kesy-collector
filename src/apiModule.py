@@ -25,9 +25,6 @@ class ClientLocation:
         print(response)
 
 
-# clientLocation = ClientLocation('123-1123-1233')
-# clientLocation.request()
-
 class Trash:
     def __init__(self, uuid):
         self.uuid = uuid
