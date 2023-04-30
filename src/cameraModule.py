@@ -51,8 +51,3 @@ class Camera:
 
         self.picam.capture_file(IMAGE_SAVE_PATH + '/' + uuid + '.jpg')
         self.picam.close()
-
-
-##
-test = Camera()
-test.capture()

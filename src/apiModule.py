@@ -52,7 +52,3 @@ class Trash:
             base64String = base64Bytes.decode('utf-8')
             self.encodedImage = base64String
             return base64String
-
-
-trash = Trash('123-1123-1233')
-trash.send()
