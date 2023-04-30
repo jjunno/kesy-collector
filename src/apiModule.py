@@ -21,8 +21,13 @@ class ClientLocation:
 
     def send(self):
         print('Requesting client to send location to master server, UUID', self.uuid)
-        response = requests.get(self.url, headers=self.headers)
-        print(response)
+        try:
+            response = requests.get(self.url, headers=self.headers, timeout=5)
+            print(response)
+        except requests.exceptions.ConnectTimeout:
+            print('ConnectTimeout: the client HTTP server is unreachable')
+        except requests.exceptions.ConnectionError:
+            print('ConnectionError: the client HTTP server refused connection')
 
 
 class Trash:
@@ -39,9 +44,14 @@ class Trash:
         payload = {"uuid": self.uuid,
                    "encodedImage": self.encodedImage}
 
-        response = requests.post(RECEIVER_API_URL, json=payload, headers=self.headers, auth=(
-            RECEIVER_API_USERNAME, RECEIVER_API_PASSWORD))
-        print(response)
+        try:
+            response = requests.post(RECEIVER_API_URL, json=payload, headers=self.headers, auth=(
+                RECEIVER_API_USERNAME, RECEIVER_API_PASSWORD), timeout=30)
+            print(response)
+        except requests.exceptions.ConnectTimeout:
+            print('ConnectTimeout: the master server is unreachable')
+        except requests.exceptions.ConnectionError:
+            print('ConnectionError: the master server refused connection')
 
     def imageToBase64(self):
         with open(self.imagePath, "rb") as f:
