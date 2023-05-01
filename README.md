@@ -45,9 +45,6 @@ EXPRESS_PORT=3000
 HTTP_PORT=8080
 ```
 
-Should be accessed from the kesy-rpi1ClientAccess.
-Updates the given UUID row location data.
-
 # Install
 
 ```
