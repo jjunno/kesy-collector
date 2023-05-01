@@ -18,6 +18,6 @@ Data tallennetaan MySQL kantaan.
 Node.js myös palvelee dataa Vue:lle, jota voidaan esitellä sivuston kävijöille.
 
 INSTALL
-python3 -m venv env
+python3 -m venv env --system-site-packages
 source env/bin/activate
 pip3 install -r src/requirements.txt
