@@ -7,61 +7,103 @@ User (me) picks up a trash with a grabber. The collector takes a picture of the 
 
 The collector = Raspberry Pi with camera module, Sense Hat.
 
-# kesy-collector (this)
+# kesy-receiver (this)
 
 .. is only one of the few KESY repositories.
 
-This repository contains code for the collector. The actual Trash -action (taking the picture, controlling the camera and Sense Hat) is Python.
+The repository contains code for the server that receives the data from the collector. Please note that this server does not expose any GET methods. 
 
-This repository also includes a Node.js server with Express and HTTP. Since the RPI does not have any GPS or SIM module, we can connect it to a mobile phone hotspot. We need the network for data upload anyway, but we can also get the device location with HTTP.
+The data is saved to a MySQL database.
 
-The HTTP serves HTML and Socket.io to the mobile phone.
-
-The Express listens a single route, which is being used in Python. When the camera takes the photo, this route is called. It requests the location data from the mobile phone. The data is also uploaded to the receiver.
+The receiver might be referred as "master server" aswell.
 
 
-# .env
+### POST new Trash
 
 ```
-ENV=development
+POST {{host}}/api/v1/trash
 
-#Show camera preview with few second delay before capturing the photo. Can only be used with ENV = development.
-SHOW_PREVIEW=False
-
-#Image settings
-IMAGE_WIDTH=1920
-IMAGE_HEIGHT=1080
-
-#The path the captured image should be saved to.
-#Without ending slash!
-IMAGE_SAVE_PATH=/home/pi/Pictures
-
-LOCAL_NODE_API_URL=http://localhost:3000/api/v1/clientLocation
-RECEIVER_API_URL=http://host/api/v1/trash
-RECEIVER_API_USERNAME=foo
-RECEIVER_API_PASSWORD=bar
-
-EXPRESS_PORT=3000
-HTTP_PORT=8080
+{
+    "uuid": "str(36) unique",
+    "accuracy": "decimal(6,2) nullable",
+    "latitude": "decimal(10, 8) nullable",
+    "longitude": "decimal(11,8) nullable",
+    "encodedImage": "base64 nullable"
+}
 ```
+
+Should be accessed from the Python that controls the camera.
+Creates a new row to the master database. Also saves the image to `storage/images`.
+
+New row = a new collected trash.
+
+### PUT location data
+
+```
+PUT {{host}}/api/v1/trash
+
+{
+    "uuid": "str(36) unique",
+    "accuracy": "decimal(6,2) nullable",
+    "latitude": "decimal(10, 8) nullable",
+    "longitude": "decimal(11,8) nullable",
+}
+```
+
+Should be accessed from the kesy-collector Node.js.
+Updates the given UUID row location data.
 
 # Install
 
 ```
-python3 -m venv env --system-site-packages
-source env/bin/activate
-pip3 install -r src/requirements.txt
-
 npm install
 mkdir storage/images
+touch .env
 touch src/knexfile.js
 ```
 
-# Usage
+## .env
 
 ```
-source env/bin/activate
-python3 src/main.py
+NODE_ENV=development
+PORT=3000
 
+RPI1_USERNAME=foo
+RPI1_PASSWORD=bar
+```
+
+## knexfile.js
+
+```
+// Update with your config settings.
+
+/**
+ * @type { Object.<string, import("knex").Knex.Config> }
+ */
+module.exports = {
+  development: {
+    client: 'mysql2',
+    connection: {
+      host: 'localhost',
+      port: 3306,
+      user: 'username',
+      password: 'password',
+      database: 'database',
+      dateStrings: true,
+      typeCast: function (field, next) {
+        if (field.type == 'TINY' && field.length == 1) {
+          return field.string() == '1'; // 1 = true, 0 = false
+        }
+        return next();
+      },
+    },
+  },
+};
+
+```
+
+## Usage
+
+```
 node src/server.js
 ```
