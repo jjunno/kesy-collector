@@ -21,3 +21,28 @@ INSTALL
 python3 -m venv env
 source env/bin/activate
 pip3 install -r src/requirements.txt
+
+ENV=development
+
+# Show camera preview with few second delay before capturing the photo. Can only be used with ENV = development.
+
+SHOW_PREVIEW=False
+
+# Image settings
+
+IMAGE_WIDTH=1920
+IMAGE_HEIGHT=1080
+
+# The path the captured image should be saved to.
+
+# Without ending slash!
+
+IMAGE_SAVE_PATH=/home/keijo/Pictures
+
+LOCAL_NODE_API_URL=http://localhost:3000/api/v1/clientLocation
+RECEIVER_API_URL=http://192.168.1.4:3000/api/v1/trash
+RECEIVER_API_USERNAME=foo
+RECEIVER_API_PASSWORD=bar
+
+EXPRESS_PORT=3000
+HTTP_PORT=8080
