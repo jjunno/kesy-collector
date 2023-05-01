@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0,
+    user-scalable=no"
+    />
+
+    <style>
+      body {
+        background-color: #282828;
+        font-family: 'Helvetica', Sans-Serif;
+        color: #ffbb00;
+      }
+      h1 {
+        text-align: center;
+      }
+      h4 {
+        text-align: center;
+      }
+      ul {
+        list-style-type: square;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>KESY - COLLECTOR - CLIENT</h1>
+    <h4 id="elementSocketId"></h4>
+
+    <ul id="elementLog"></ul>
+
+    <script src="./io.js"></script>
+
+    <script>
+      console.log('Init html');
+
+      // HTML elements
+      const elementSocketId = document.getElementById('elementSocketId');
+      const elementLog = document.getElementById('elementLog');
+
+      const socket = io().connect();
+
+      socket.on('connect', () => {
+        addItemToLog('Connected to server');
+        elementSocketId.innerHTML = socket.id;
+      });
+
+      // Server requests for client location
+      socket.on('requestClientLocation', function (msg) {
+        addItemToLog('Server requested location');
+        getLocation();
+      });
+
+      // Server sends the master server status
+      socket.on('sendMasterServerStatusToClient', function (msg) {
+        addItemToLog(`Location sent to master server with status ${msg}`);
+      });
+
+      // Browser location api
+      function getLocation() {
+        console.log('Accessing geolocation');
+        if (navigator.geolocation) {
+          addItemToLog('Accessing geolocation');
+          navigator.geolocation.getCurrentPosition(processPosition);
+        } else {
+          const err = 'Geolocation is not supported by this browser.';
+          addItemToLog('Geolocation is not supported by this browser.');
+          return { error: err };
+        }
+      }
+
+      // Callback for navigator.geolocation
+      function processPosition(pos) {
+        if (pos.coords) {
+          returnLocationToServer(pos);
+          return pos;
+        }
+        return null;
+      }
+
+      function returnLocationToServer(data) {
+        addItemToLog('Returning location to server');
+        socket.emit('clientLocation', {
+          accuracy: data.coords.accuracy,
+          latitude: data.coords.latitude,
+          longitude: data.coords.longitude,
+        });
+      }
+
+      // Create <li> element of given content (timestamp added) to the log element
+      function addItemToLog(content) {
+        const time = new Date().toLocaleTimeString();
+        const row = `${time}: ${content}`;
+        console.log(`${row}`);
+
+        var item = document.createElement('li');
+        item.textContent = row;
+        elementLog.appendChild(item);
+        window.scrollTo(0, document.body.scrollHeight);
+      }
+    </script>
+  </body>
+</html>

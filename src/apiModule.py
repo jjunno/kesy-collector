@@ -6,7 +6,7 @@ load_dotenv()
 
 # Env variables
 ENV = str(os.getenv('ENV', 'development'))
-RPI1CLIENTACCESS_API_URL = str(os.getenv('RPI1CLIENTACCESS_API_URL', ''))
+LOCAL_NODE_API_URL = str(os.getenv('LOCAL_NODE_API_URL', ''))
 RECEIVER_API_URL = str(os.getenv('RECEIVER_API_URL', ''))
 RECEIVER_API_USERNAME = str(os.getenv('RECEIVER_API_USERNAME', ''))
 RECEIVER_API_PASSWORD = str(os.getenv('RECEIVER_API_PASSWORD', ''))
@@ -16,7 +16,7 @@ IMAGE_SAVE_PATH = str(os.getenv('IMAGE_SAVE_PATH', ''))
 class ClientLocation:
     def __init__(self, uuid):
         self.uuid = uuid
-        self.url = RPI1CLIENTACCESS_API_URL + '?uuid=' + uuid
+        self.url = LOCAL_NODE_API_URL + '?uuid=' + uuid
         self.headers = {'Content-Type': 'application/json'}
 
     def send(self):

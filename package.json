@@ -1,28 +1,27 @@
 {
-  "name": "kesy",
+  "name": "kesy-collector",
   "version": "1.0.0",
-  "description": "Keräily Systeemi",
-  "main": "express.js",
+  "description": "A project for Rasberry Pi (camera module, sense hat or button) to collect trashes, picture them and send data to server.",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "npx nodemon collector/client/express.js"
+    "dev": "npx nodemon src/server.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jjunno/kesy.git"
+    "url": "git+https://github.com/jjunno/kesy-collector.git"
   },
-  "author": "",
+  "author": "Joonas Junno",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/jjunno/kesy/issues"
+    "url": "https://github.com/jjunno/kesy-collector/issues"
   },
-  "homepage": "https://github.com/jjunno/kesy#readme",
+  "homepage": "https://github.com/jjunno/kesy-collector#readme",
   "dependencies": {
+    "axios": "^1.4.0",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "websocket": "^1.0.34",
-    "ws": "^8.13.0"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "socket.io": "^4.6.1"
   }
 }
