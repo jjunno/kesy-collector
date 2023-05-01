@@ -45,18 +45,6 @@ EXPRESS_PORT=3000
 HTTP_PORT=8080
 ```
 
-# Install
-
-```
-python3 -m venv env --system-site-packages
-source env/bin/activate
-pip3 install -r src/requirements.txt
-
-npm install
-mkdir storage/images
-touch src/knexfile.js
-```
-
 ## knexfile.js
 
 ```
@@ -85,6 +73,18 @@ module.exports = {
   },
 };
 
+```
+
+# Install
+
+```
+python3 -m venv env --system-site-packages
+source env/bin/activate
+pip3 install -r src/requirements.txt
+
+npm install
+mkdir storage/images
+touch src/knexfile.js
 ```
 
 ## Usage
