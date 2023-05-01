@@ -45,36 +45,6 @@ EXPRESS_PORT=3000
 HTTP_PORT=8080
 ```
 
-# knexfile.js
-
-```
-// Update with your config settings.
-
-/**
- * @type { Object.<string, import("knex").Knex.Config> }
- */
-module.exports = {
-  development: {
-    client: 'mysql2',
-    connection: {
-      host: 'localhost',
-      port: 3306,
-      user: 'username',
-      password: 'password',
-      database: 'database',
-      dateStrings: true,
-      typeCast: function (field, next) {
-        if (field.type == 'TINY' && field.length == 1) {
-          return field.string() == '1'; // 1 = true, 0 = false
-        }
-        return next();
-      },
-    },
-  },
-};
-
-```
-
 # Install
 
 ```
