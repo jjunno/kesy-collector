@@ -7,6 +7,9 @@ User (me) picks up a trash with a grabber. The collector takes a picture of the 
 
 The collector = Raspberry Pi with camera module, Sense Hat.
 
+## WORK IN PROGRESS
+Please note that this project is a hobby project and work in progress. For example, it is designed to be used with Sense Hat but because I still dont have one, it's using a simple button instead for now.
+
 # kesy-collector (this)
 
 .. is only one of the few KESY repositories.
