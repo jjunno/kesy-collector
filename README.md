@@ -20,7 +20,7 @@ The HTTP serves HTML and Socket.io to the mobile phone.
 The Express listens a single route, which is being used in Python. When the camera takes the photo, this route is called. It requests the location data from the mobile phone. The data is also uploaded to the receiver.
 
 
-### .env
+# .env
 
 ```
 ENV=development
@@ -45,7 +45,7 @@ EXPRESS_PORT=3000
 HTTP_PORT=8080
 ```
 
-## knexfile.js
+# knexfile.js
 
 ```
 // Update with your config settings.
@@ -87,7 +87,7 @@ mkdir storage/images
 touch src/knexfile.js
 ```
 
-## Usage
+# Usage
 
 ```
 source env/bin/activate
