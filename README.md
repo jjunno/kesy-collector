@@ -57,7 +57,6 @@ pip3 install -r src/requirements.txt
 
 npm install
 mkdir storage/images
-touch src/knexfile.js
 ```
 
 # Usage
