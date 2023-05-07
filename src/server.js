@@ -3,6 +3,7 @@ const app = express();
 const router = express.Router();
 const path = require('path');
 const axios = require('axios');
+const https = require('https');
 require('dotenv').config();
 
 // Env var
@@ -11,6 +12,9 @@ HTTP_PORT = process.env.HTTP_PORT;
 RECEIVER_API_URL = process.env.RECEIVER_API_URL;
 RECEIVER_API_USERNAME = process.env.RECEIVER_API_USERNAME;
 RECEIVER_API_PASSWORD = process.env.RECEIVER_API_PASSWORD;
+
+// Poor security, but it's still HTTPS. This should be used as long as I'm not paying for a domain.
+const httpsAgent = new https.Agent({ rejectUnauthorized: false });
 
 // IO
 const http = require('http');
@@ -119,6 +123,7 @@ async function sendLocationToMasterServer(data) {
         password: RECEIVER_API_PASSWORD,
       },
       'content-type': 'application/json',
+      httpsAgent,
     });
 
     if (response.status == 200) {
